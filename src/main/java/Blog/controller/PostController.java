@@ -3,6 +3,7 @@ package Blog.controller;
 
 import Blog.model.Post;
 import Blog.service.PostService;
+//import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.Entity;
 import javax.validation.Valid;
@@ -38,6 +40,28 @@ public class PostController {
         postService.savePost(post);
         return "redirect:/";
       }
+
+    //Emily change
+    //      @Valid is added to trigger Bean Validator to check if the field conform with @NotEmpty
+//    @PostMapping("/savePost")
+//    public String savePost(@Valid @ModelAttribute("post") Post post,
+//                           BindingResult bindingResult,
+//                           Model model,
+//                           RedirectAttributes attributes
+////                           Principal principal
+//    ){
+////        If statement is included to catch error. If there is no error, the post is saved and the page will redirect.
+//        if(bindingResult.hasErrors()){
+//            return "new_post";
+//        } else {
+////            String username = principal.getName();
+////            post.setUsername(username);
+//            postService.savePost(post);
+////              Added for success message
+//            return "redirect:/showNewPostForm?success";
+//        }
+//    }
+
     @GetMapping("/showPostForUpdate/{id}")
     public String showPostForUpdate(@PathVariable(value = "id") long id, Model model){
         //get post from Blog.service
@@ -61,10 +85,18 @@ public class PostController {
 //    }
 
         @GetMapping("/deletePost/{id}")
+        public String deletePost(@PathVariable(value = "id") Long id, Model model){
+        Post post = this.postService.getPostById(id);
+        model.addAttribute("post", post);
+        return "deletePost";
+    }
+    @GetMapping("/deletePost/{id}/confirm")
     public String deletePost(@PathVariable(value = "id") Long id){
         this.postService.deletePostById(id);
-        return "redirect:/";
+        return "redirect:/?postDeleted";
     }
+
+
 
 //Forgot to add a proper Get Method, here is that now
     @GetMapping("/post/{id}")

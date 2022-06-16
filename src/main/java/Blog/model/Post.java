@@ -17,14 +17,15 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @NotEmpty(message = "Please enter the title")
+
+    //    Form validation syntax for the title to not be empty
+    @NotEmpty(message = "Please fill out title of the post.")
     @Column(name="title")
     private String title;
 
-//    @NotEmpty(message = "Write something for the love of Internet...")
 
-    //Specifies the type of data field is to be TEXT
-    @NotEmpty(message = "Blog body test here...")
+    //Form validation syntax for the content to not be empty
+    @NotEmpty(message = "Please fill out content of the post.")
     @Column(name = "body", columnDefinition = "TEXT", nullable = false)
         private String body;
 

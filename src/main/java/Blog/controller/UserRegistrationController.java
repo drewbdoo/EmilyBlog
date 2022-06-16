@@ -40,17 +40,11 @@ public class UserRegistrationController {
         if(existing!=null){
             result.rejectValue("username", null,
                     "There is already an account registered with that username");
+            return "redirect:/registration?error";
         }
-        System.out.print("result.hasErrors():"+result.hasErrors());
-        if(result.hasErrors()){
-            return "registration";
-        }
-
         userService.save(userDto);
-
         return "redirect:/registration?success";
     }
-
 
 
 

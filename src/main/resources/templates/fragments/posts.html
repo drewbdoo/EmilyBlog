@@ -41,7 +41,7 @@
                     <td><a th:if="${#authentication.name}==${post.username}" th:href="@{/showPostForUpdate/{id}(id=${post.id})}" class="btn btn-outline-primary">Update</a></td>
                     <td><a th:if="${#authentication.name}==${post.username}" th:href="@{/deletePost/{id}(id=${post.id})}" class="btn btn-outline-danger">Delete</a></td>
                 </tr>
-     >
+
                 </tbody>
             </table>
 

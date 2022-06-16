@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 
 
@@ -18,10 +19,10 @@ public class User implements UserDetails {
     @Column(name = "id")
     private Long id;
     @Column(name = "username", nullable = false, unique = true)
-    @NotNull
+    @NotEmpty(message = "Please enter your username")
     private String username;
     @Column(name = "password", nullable = false)
-    @NotNull
+    @NotEmpty(message = "Please enter your password")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
