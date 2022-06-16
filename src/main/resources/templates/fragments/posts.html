@@ -24,7 +24,7 @@
             <div class="card-transparent pwrapper">
                 <div class="card-header">
 <!--                    This should be where the username is posted, right now itis just pulling the title-->
-                    <p><a th:href="@{'/post/' + ${post.id}}" th:text="${post.title}">Title</a></p>
+                    <p><a th:href="@{'/post/' + ${post.id}}" th:text="${post.username}">Title</a></p>
                 </div>
                 <div class="card-body">
 <!--                    Title of the post-->
@@ -32,8 +32,9 @@
 <!--                    Body of the post-->
                     <p class="card-text"><p th:text="${post.body}">body text</p>
 <!--                    When it was pushlished and by whom, username from user not made yet-->
-                    <p class="card-text" th:text="'Published on ' +${#dates.format(post.currentDate, 'MMMM dd, yyyy')} +' by username'"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <p class="card-text" th:text="'Published on ' +${#dates.format(post.currentDate, 'MMMM dd, yyyy')} +' by ' + ${post.username}"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end"
+                    th:if="${#authentication.name}==${post.username}">
 <!--                        These should only be shown once a user has logged in and should only show on posts they have made-->
                         <a th:href="@{/showPostForUpdate/{id}(id=${post.id})}" class="btn btn-outline-primary">Update</a>
                         <a th:href="@{/deletePost/{id}(id=${post.id})}" class="btn btn-outline-danger">Delete</a>

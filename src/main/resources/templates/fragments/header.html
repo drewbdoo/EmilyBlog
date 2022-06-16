@@ -32,8 +32,11 @@
                 </li>
             </ul>
         </div>
-        <div sec:authorize="isAuthenticated()">
-            Welcome, <span sec:authentication="name">Username</span>
+<!--        <div sec:authorize="isAuthenticated()">-->
+<!--            Welcome, <span sec:authentication="name">Username</span>-->
+<!--        </div>-->
+        <div th:if="${#authorization.expression('isAuthenticated()')}">
+            <h1 th:inline="text">Hello, <span th:text="${#authentication.name}"></span>!</h1>
         </div>
 
 <!--&lt;!&ndash;        older way of doing the links&ndash;&gt;-->

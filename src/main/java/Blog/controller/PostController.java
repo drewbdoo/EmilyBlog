@@ -6,9 +6,13 @@ import Blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.persistence.Entity;
+import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -26,7 +30,9 @@ public class PostController {
       }
 
       @PostMapping("/savePost")
-      public String savePost(@ModelAttribute("post") Post post){
+      public String savePost(@ModelAttribute("post") Post post, Principal principal){
+        String username = principal.getName();
+        post.setUsername(username);
         postService.savePost(post);
         return "redirect:/";
       }
@@ -38,8 +44,21 @@ public class PostController {
         model.addAttribute("post", post);
         return "update_post";
     }
+//    @PostMapping("/savePost")
+//    public String createNewPost(@Valid @ModelAttribute Post post, BindingResult bindingResult, SessionStatus sessionStatus) {
+//        System.err.println("POST post: " + post); // for testing debugging purposes
+//        if (bindingResult.hasErrors()) {
+//            System.err.println("Post did not validate");
+//            return "postForm";
+//        }
+//        // Save post if all good
+//        this.postService.savePost(post);
+//        System.err.println("SAVE post: " + post); // for testing debugging purposes
+//        sessionStatus.setComplete();
+//        return "redirect:/post/" + post.getId();
+//    }
 
-    @GetMapping("/deletePost/{id}")
+        @GetMapping("/deletePost/{id}")
     public String deletePost(@PathVariable(value = "id") Long id){
         this.postService.deletePostById(id);
         return "redirect:/";
