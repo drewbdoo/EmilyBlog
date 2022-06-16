@@ -14,27 +14,63 @@
             <!-- this is where the username fields and creation time go -->
             <!--           this doesn't work right now <h5 th:text="'Published on ' + ${#dates.format(post.date, 'yyyy MMMM dd')} +  ${post.user.username}'">Creation date and by whom</h5>-->
 
-            <div class="img">
-                <img src="/images/logo.svg" th:src="@{/images/logoicon.svg}"/>
-            </div>
+<!--            <div class="img">-->
+<!--                <img src="/images/logo.svg" th:src="@{/images/logoicon.svg}"/>-->
+<!--            </div>-->
 <!--            <p th:text="${post.body}">body text</p>-->
-
-
+<!--            <table class="table">-->
+<!--&lt;!&ndash;                <thead>&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <th scope="col">#</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <th scope="col">First</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <th scope="col">Last</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <th scope="col">Handle</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                </thead>&ndash;&gt;-->
+<!--                <tbody>-->
+<!--                <tr>-->
+<!--                    <th scope="row"></th>-->
+<!--                    <td><img class="img" src="/images/logo.svg" th:src="@{/images/logoicon.svg}"/></td>-->
+<!--                    <td><h5><a th:href="@{'/post/' + ${post.id}}" th:text="${post.title}">Title</a></h5>-->
+<!--                        <small class="text-muted">By <a th:href="@{'/post/' + ${post.id}}" th:text="${post.username}">Username</a></small>-->
+<!--                    </td>-->
+<!--&lt;!&ndash;                    <td><h6><a th:href="@{'/post/' + ${post.id}}" th:text="${post.username}">Username</a></h6></td>&ndash;&gt;-->
+<!--                    <td><p th:text="${post.body}">body text</p></td>-->
+<!--                    <td><p th:text="'Published on ' +${#dates.format(post.currentDate, 'MMMM dd, yyyy')} +' by ' + ${post.username}"></td>-->
+<!--                    &lt;!&ndash;                        These should only be shown once a user has logged in and should only show on posts they have made&ndash;&gt;-->
+<!--                    <td><a th:if="${#authentication.name}==${post.username}" th:href="@{/showPostForUpdate/{id}(id=${post.id})}" class="btn btn-outline-primary">Update</a></td>-->
+<!--                    <td><a th:if="${#authentication.name}==${post.username}" th:href="@{/deletePost/{id}(id=${post.id})}" class="btn btn-outline-danger">Delete</a></td>-->
+<!--                </tr>-->
+<!--     >-->
+<!--                </tbody>-->
+<!--            </table>-->
+                        <div class="img">
+                            <img src="/images/logo.svg" th:src="@{/images/logoicon.svg}"/>
+                        </div>
             <br>
+
             <div class="card-transparent pwrapper">
                 <div class="card-header">
 <!--                    This should be where the username is posted, right now itis just pulling the title-->
-                    <p><a th:href="@{'/post/' + ${post.id}}" th:text="${post.title}">Title</a></p>
+                    <h5><a th:href="@{'/post/' + ${post.id}}" th:text="${post.title}">Title</a></h5>
+                    <small class="text-muted">By <a th:href="@{'/post/' + ${post.id}}" th:text="${post.username}">Username</a></small>
                 </div>
                 <div class="card-body">
 <!--                    Title of the post-->
-                    <h5 class="card-title"><a th:href="@{'/post/' + ${post.id}}" th:text="${post.title}">Title</a></h5>
+<!--                    <h5 class="card-title"><a th:href="@{'/post/' + ${post.id}}" th:text="${post.title}">Title</a></h5>-->
 <!--                    Body of the post-->
                     <p class="card-text"><p th:text="${post.body}">body text</p>
 <!--                    When it was pushlished and by whom, username from user not made yet-->
+
+                    <p class="card-text" th:text="'Published on ' +${#dates.format(post.currentDate, 'MMMM dd, yyyy')} +' by ' + ${post.username}"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end"
+                    th:if="${#authentication.name}==${post.username}">
+<!--                        These should only be shown once a user has logged in and should only show on posts they have made-->
+
                     <p class="card-text" th:text="'Published on ' +${#dates.format(post.currentDate, 'MMMM dd, yyyy')} +' by username'"><small class="text-muted">Last updated 3 mins ago</small></p>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <!--                        These should only be shown once a user has logged in and should only show on posts they have made-->
+
                         <a th:href="@{/showPostForUpdate/{id}(id=${post.id})}" class="btn btn-outline-primary">Update</a>
                         <a th:href="@{/deletePost/{id}(id=${post.id})}" class="btn btn-outline-danger">Delete</a>
                     </div>
@@ -45,6 +81,7 @@
     </div>
 
 
+</div>
 </div>
 
 </body>

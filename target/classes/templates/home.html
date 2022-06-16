@@ -8,6 +8,9 @@
 <div th:replace="/fragments/header :: header"></div>
 
 
+
+<div class="container" style="margin-right: 25%">
+
 <!--Confirmation for deleting post-->
 <div th:if="${param.postDeleted}">
     <p class="alert alert-success" role="alert">Your post has successfully been deleted</p>
@@ -20,7 +23,7 @@
 
 <!--<div class="container">-->
     <div th:replace="/fragments/posts :: posts(posts=${posts})"></div>
-<!--</div>-->
+</div>
 
 <footer th:replace="/fragments/footer :: footer"></footer>
 
