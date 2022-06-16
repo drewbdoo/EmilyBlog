@@ -6,10 +6,31 @@
 <body>
 
 <div th:replace="/fragments/header :: header"></div>
+<div class="w3-sidebar w3-bar-block" style="width:25%;right:0">
+    <h5 class="w3-bar-item">Menu</h5>
+    <a href="#" class="w3-bar-item w3-button">Link 1</a>
+    <a href="#" class="w3-bar-item w3-button">Link 2</a>
+    <a href="#" class="w3-bar-item w3-button">Link 3</a>
+</div>
+
+<<<<<<< HEAD
+<div class="container" style="margin-right: 25%">
+=======
+
+<!--Confirmation for deleting post-->
+<div th:if="${param.postDeleted}">
+    <p class="alert alert-success" role="alert">Your post has successfully been deleted</p>
+</div>
+
+<!--Success message for logging in-->
+<div th:if="${param.success}">
+    <p class="alert alert-success" role="alert"> You have been successfully logged in</p>
+</div>
 
 <!--<div class="container">-->
+>>>>>>> origin/EmilyBranch
     <div th:replace="/fragments/posts :: posts(posts=${posts})"></div>
-<!--</div>-->
+</div>
 
 <footer th:replace="/fragments/footer :: footer"></footer>
 

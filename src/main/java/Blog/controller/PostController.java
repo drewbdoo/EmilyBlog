@@ -4,11 +4,18 @@ package Blog.controller;
 import Blog.model.Post;
 import Blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.persistence.Entity;
+import javax.validation.Valid;
+import java.security.Principal;
+import java.util.List;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.Optional;
 
 @Controller
@@ -25,11 +32,35 @@ public class PostController {
         return "new_post";
       }
 
-      @PostMapping("/savePost")
-      public String savePost(@ModelAttribute("post") Post post){
-        postService.savePost(post);
-        return "redirect:/";
+//      @PostMapping("/savePost")
+//      public String savePost(@ModelAttribute("post") Post post, Principal principal) {
+//          String username = principal.getName();
+//          post.setUsername(username);
+//          postService.savePost(post);
+//          return "redirect:/";
+//      }
+
+          @PostMapping("/savePost")
+      //      @Valid is added to trigger Bean Validator to check if the field conform with @NotEmpty
+      public String savePost(@Valid @ModelAttribute("post") Post post,
+                             BindingResult bindingResult,
+                             Model model,
+                             RedirectAttributes attributes,
+                             Principal principal){
+//        If statement is included to catch error. If there is no error, the post is saved and the page will redirect.
+          if(bindingResult.hasErrors()){
+              return "new_post";
+          } else {
+              String username = principal.getName();
+              post.setUsername(username);
+              postService.savePost(post);
+//              Added for success message
+              return "redirect:/showNewPostForm?success";
+          }
+
       }
+
+
     @GetMapping("/showPostForUpdate/{id}")
     public String showPostForUpdate(@PathVariable(value = "id") long id, Model model){
         //get post from Blog.service
@@ -38,11 +69,33 @@ public class PostController {
         model.addAttribute("post", post);
         return "update_post";
     }
+//    @PostMapping("/savePost")
+//    public String createNewPost(@Valid @ModelAttribute Post post, BindingResult bindingResult, SessionStatus sessionStatus) {
+//        System.err.println("POST post: " + post); // for testing debugging purposes
+//        if (bindingResult.hasErrors()) {
+//            System.err.println("Post did not validate");
+//            return "postForm";
+//        }
+//        // Save post if all good
+//        this.postService.savePost(post);
+//        System.err.println("SAVE post: " + post); // for testing debugging purposes
+//        sessionStatus.setComplete();
+//        return "redirect:/post/" + post.getId();
+//    }
 
-    @GetMapping("/deletePost/{id}")
+
+        @GetMapping("/deletePost/{id}")
+        public String deletePost(@PathVariable(value = "id") Long id, Model model){
+        Post post = this.postService.getPostById(id);
+        model.addAttribute("post",post);
+
+        return "deletePost";
+    }
+
+    @GetMapping("/deletePost/{id}/confirm")
     public String deletePost(@PathVariable(value = "id") Long id){
         this.postService.deletePostById(id);
-        return "redirect:/";
+        return "redirect:/?postDeleted";
     }
 
 //Forgot to add a proper Get Method, here is that now
@@ -71,19 +124,19 @@ public class PostController {
 //    public String findPaginated(@PathVariable(value = "pageNo")int pageNo,
 //                                @RequestParam("sortField") String sortField,
 //                                @RequestParam("sortDir") String sortDir,
-//                                Model Blog.model){
-//        int pageSize = 5;
+//                                Model model){
+//        int pageSize = 3;
 //        Page<Post> page = postService.findPaginated(pageNo, pageSize, sortField, sortDir);
 //        List<Post> listPosts = page.getContent();
-//        Blog.model.addAttribute("currentPage", pageNo);
-//        Blog.model.addAttribute("totalPages", page.getTotalPages());
-//        Blog.model.addAttribute("totalItems", page.getTotalElements());
+//        model.addAttribute("currentPage", pageNo);
+//        model.addAttribute("totalPages", page.getTotalPages());
+//        model.addAttribute("totalItems", page.getTotalElements());
 //
-//        Blog.model.addAttribute("sortField", sortField);
-//        Blog.model.addAttribute("sortDir", sortDir);
-//        Blog.model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc": "asc");
+//        model.addAttribute("sortField", sortField);
+//        model.addAttribute("sortDir", sortDir);
+//        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc": "asc");
 //
-//        Blog.model.addAttribute("listPosts", listPosts);
+//        model.addAttribute("listPosts", listPosts);
 //        return "index";
 //    }
 }

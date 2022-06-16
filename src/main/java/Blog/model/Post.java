@@ -1,8 +1,14 @@
 package Blog.model;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+<<<<<<< HEAD
+import javax.validation.constraints.NotNull;
+=======
+>>>>>>> origin/EmilyBranch
 import java.util.Date;
 
 @Entity
@@ -14,19 +20,43 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+<<<<<<< HEAD
+    @NotEmpty(message = "Please enter the title")
+=======
+
+    //    Form validation syntax for the title to not be empty
+    @NotEmpty(message = "Please fill out title of the post.")
+>>>>>>> origin/EmilyBranch
     @Column(name="title")
     private String title;
 
 //    @NotEmpty(message = "Write something for the love of Internet...")
 
+
+    //Form validation syntax for the content to not be empty
+    @NotEmpty(message = "Please fill out content of the post.")
     //Specifies the type of data field is to be TEXT
+    @NotEmpty(message = "Blog body test here...")
     @Column(name = "body", columnDefinition = "TEXT", nullable = false)
-    private String body;
+        private String body;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="date", nullable = false,updatable = false)
     private Date currentDate;
+@NotNull
+@Column(name = "username")
+private String username;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    //Adding a user variable, should be assigned in new PostContoller createnewpost feature
+
 
     public long getId() {
         return id;
