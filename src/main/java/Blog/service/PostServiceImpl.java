@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -20,6 +21,15 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> getAllPosts() {
         return postRepository.findAll();
+    }
+
+    @Override
+    public List<Post> getLatestPosts(int limit) {
+        List<Post> allPosts = getAllPosts();
+        allPosts.sort(
+                (a,b) -> -a.getCurrentDate().compareTo(b.getCurrentDate())
+        );
+        return allPosts.stream().limit(limit).collect(Collectors.toList());
     }
 
     @Override

@@ -9,6 +9,7 @@ import java.util.List;
 public interface PostService {
 
     List<Post> getAllPosts();
+    List<Post> getLatestPosts(int limit);
     void savePost(Post post);
     Post getPostById(Long id);
     void deletePostById(Long id);

@@ -4,6 +4,7 @@ package Blog.controller;
 import Blog.model.Post;
 import Blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import javax.persistence.Entity;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -90,19 +92,19 @@ public class PostController {
 //    public String findPaginated(@PathVariable(value = "pageNo")int pageNo,
 //                                @RequestParam("sortField") String sortField,
 //                                @RequestParam("sortDir") String sortDir,
-//                                Model Blog.model){
-//        int pageSize = 5;
+//                                Model model){
+//        int pageSize = 3;
 //        Page<Post> page = postService.findPaginated(pageNo, pageSize, sortField, sortDir);
 //        List<Post> listPosts = page.getContent();
-//        Blog.model.addAttribute("currentPage", pageNo);
-//        Blog.model.addAttribute("totalPages", page.getTotalPages());
-//        Blog.model.addAttribute("totalItems", page.getTotalElements());
+//        model.addAttribute("currentPage", pageNo);
+//        model.addAttribute("totalPages", page.getTotalPages());
+//        model.addAttribute("totalItems", page.getTotalElements());
 //
-//        Blog.model.addAttribute("sortField", sortField);
-//        Blog.model.addAttribute("sortDir", sortDir);
-//        Blog.model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc": "asc");
+//        model.addAttribute("sortField", sortField);
+//        model.addAttribute("sortDir", sortDir);
+//        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc": "asc");
 //
-//        Blog.model.addAttribute("listPosts", listPosts);
+//        model.addAttribute("listPosts", listPosts);
 //        return "index";
 //    }
 }
