@@ -5,7 +5,10 @@ import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+<<<<<<< HEAD
 import javax.validation.constraints.NotNull;
+=======
+>>>>>>> origin/EmilyBranch
 import java.util.Date;
 
 @Entity
@@ -17,12 +20,21 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+<<<<<<< HEAD
     @NotEmpty(message = "Please enter the title")
+=======
+
+    //    Form validation syntax for the title to not be empty
+    @NotEmpty(message = "Please fill out title of the post.")
+>>>>>>> origin/EmilyBranch
     @Column(name="title")
     private String title;
 
 //    @NotEmpty(message = "Write something for the love of Internet...")
 
+
+    //Form validation syntax for the content to not be empty
+    @NotEmpty(message = "Please fill out content of the post.")
     //Specifies the type of data field is to be TEXT
     @NotEmpty(message = "Blog body test here...")
     @Column(name = "body", columnDefinition = "TEXT", nullable = false)

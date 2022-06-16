@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.Optional;
 
 @Controller
@@ -31,13 +32,35 @@ public class PostController {
         return "new_post";
       }
 
-      @PostMapping("/savePost")
-      public String savePost(@ModelAttribute("post") Post post, Principal principal){
-        String username = principal.getName();
-        post.setUsername(username);
-        postService.savePost(post);
-        return "redirect:/";
+//      @PostMapping("/savePost")
+//      public String savePost(@ModelAttribute("post") Post post, Principal principal) {
+//          String username = principal.getName();
+//          post.setUsername(username);
+//          postService.savePost(post);
+//          return "redirect:/";
+//      }
+
+          @PostMapping("/savePost")
+      //      @Valid is added to trigger Bean Validator to check if the field conform with @NotEmpty
+      public String savePost(@Valid @ModelAttribute("post") Post post,
+                             BindingResult bindingResult,
+                             Model model,
+                             RedirectAttributes attributes,
+                             Principal principal){
+//        If statement is included to catch error. If there is no error, the post is saved and the page will redirect.
+          if(bindingResult.hasErrors()){
+              return "new_post";
+          } else {
+              String username = principal.getName();
+              post.setUsername(username);
+              postService.savePost(post);
+//              Added for success message
+              return "redirect:/showNewPostForm?success";
+          }
+
       }
+
+
     @GetMapping("/showPostForUpdate/{id}")
     public String showPostForUpdate(@PathVariable(value = "id") long id, Model model){
         //get post from Blog.service
@@ -60,10 +83,19 @@ public class PostController {
 //        return "redirect:/post/" + post.getId();
 //    }
 
+
         @GetMapping("/deletePost/{id}")
+        public String deletePost(@PathVariable(value = "id") Long id, Model model){
+        Post post = this.postService.getPostById(id);
+        model.addAttribute("post",post);
+
+        return "deletePost";
+    }
+
+    @GetMapping("/deletePost/{id}/confirm")
     public String deletePost(@PathVariable(value = "id") Long id){
         this.postService.deletePostById(id);
-        return "redirect:/";
+        return "redirect:/?postDeleted";
     }
 
 //Forgot to add a proper Get Method, here is that now
