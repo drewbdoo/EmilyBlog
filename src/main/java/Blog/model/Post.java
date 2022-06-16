@@ -3,6 +3,7 @@ package Blog.model;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Entity
@@ -14,11 +15,17 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    //    Form validation syntax for the title to not be empty
+    @NotEmpty(message = "Please fill out title of the post.")
     @Column(name="title")
     private String title;
 
 //    @NotEmpty(message = "Write something for the love of Internet...")
 
+
+    //Form validation syntax for the content to not be empty
+    @NotEmpty(message = "Please fill out content of the post.")
     //Specifies the type of data field is to be TEXT
     @Column(name = "body", columnDefinition = "TEXT", nullable = false)
     private String body;

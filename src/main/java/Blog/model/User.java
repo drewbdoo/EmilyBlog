@@ -4,6 +4,8 @@ import com.sun.istack.NotNull;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 
 
@@ -16,10 +18,10 @@ public class User {
     @Column(name = "id")
     private Long id;
     @Column(name = "username", nullable = false, unique = true)
-    @NotNull
+    @NotEmpty(message = "Please enter your username")
     private String username;
     @Column(name = "password", nullable = false)
-    @NotNull
+    @NotEmpty(message = "Please enter your password")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
