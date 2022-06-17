@@ -60,10 +60,10 @@
                     <p th:text="${post.body}">body text</p>
                 </div>
                 <div id="post-footer">
-                    <p th:text="'Published on ' +${#dates.format(post.currentDate, 'MMMM dd, yyyy')} +' by ' + ${post.username}">
+                    <p th:text="'Published on ' +${#dates.format(post.currentDate, 'MMMM dd, yyyy')}">
                     <!--                        These should only be shown once a user has logged in and should only show on posts they have made-->
                     <div id="buttons-box">
-                        <p><a th:if="${#authentication.name}==${post.username}" th:href="@{/showPostForUpdate/{id}(id=${post.id})}" class="btn btn-outline-primary">Update</a></p>
+                        <p><a th:if="${#authentication.name}==${post.username}" th:href="@{/showPostForUpdate/{id}(id=${post.id})}" class="btn btn-outline-primary">Edit</a></p>
                         <p><a th:if="${#authentication.name}==${post.username}" th:href="@{/deletePost/{id}(id=${post.id})}" class="btn btn-outline-danger">Delete</a></p>
                     </div>
                 </div>

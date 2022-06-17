@@ -36,7 +36,7 @@
 <!--            Welcome, <span sec:authentication="name">Username</span>-->
 <!--        </div>-->
         <div th:if="${#authorization.expression('isAuthenticated()')}">
-            <h1 th:inline="text">Hello, <span th:text="${#authentication.name}"></span>!</h1>
+            <h5 th:inline="text">Welcome, <span th:text="${#authentication.name}"></span>!</h5>
         </div>
 
 <!--&lt;!&ndash;        older way of doing the links&ndash;&gt;-->

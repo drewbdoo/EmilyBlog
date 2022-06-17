@@ -208,12 +208,16 @@ form {
 
 /* Footer */
 footer {
-    position: fixed;
     bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    /*position: relative;*/
     width: 100%;
     background: none;
     /*padding: 20px;*/
     text-align: center;
+
     /*margin-top: auto;*/
     /*margin-top: 20px;*/
 }
