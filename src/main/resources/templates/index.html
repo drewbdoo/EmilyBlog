@@ -25,7 +25,7 @@
         </tr>
         </thead>
     <tbody>
-    <tr th:each="post : ${listPosts}">
+    <tr class="post_display" th:each="post : ${listPosts}">
         <td th:text="${post.title}"></td>
         <td th:text="${post.body}"></td>
         <td th:text="${post.currentDate}"></td>

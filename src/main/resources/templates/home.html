@@ -23,15 +23,12 @@
     <p class="alert alert-success" role="alert">Your post has successfully been deleted</p>
 </div>
 
-<!--Success message for logging in-->
-<div th:if="${param.success}">
-    <p class="alert alert-success" role="alert"> You have been successfully logged in</p>
-</div>
+
 
 <!--<div class="container">-->
     <div th:replace="/fragments/posts :: posts(posts=${posts})"></div>
 <!--</div>-->
-
+<div id="spacer"></div>
 <footer th:replace="/fragments/footer :: footer"></footer>
 
 </body>

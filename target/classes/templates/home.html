@@ -6,8 +6,6 @@
 <body>
 
 <div th:replace="/fragments/header :: header"></div>
-
-
 <!--Confirmation for deleting post-->
 <div th:if="${param.postDeleted}">
     <p class="alert alert-success" role="alert">Your post has successfully been deleted</p>
@@ -18,10 +16,19 @@
     <p class="alert alert-success" role="alert"> You have been successfully logged in</p>
 </div>
 
+
+
+<!--Confirmation for deleting post-->
+<div th:if="${param.postDeleted}">
+    <p class="alert alert-success" role="alert">Your post has successfully been deleted</p>
+</div>
+
+
+
 <!--<div class="container">-->
     <div th:replace="/fragments/posts :: posts(posts=${posts})"></div>
 <!--</div>-->
-
+<div id="spacer"></div>
 <footer th:replace="/fragments/footer :: footer"></footer>
 
 </body>

@@ -4,15 +4,18 @@
 <body>
 <div th:replace="/fragments/header :: header"></div>
 <div class="container">
-    <h1>Post Management System</h1>
+    <h1 class = " Header1-post">Post Management System</h1>
     <hr>
-    <h2>Save New Post</h2>
+    <h2 class = " Save-PostH2">Save New Post</h2>
 
     <form action="#" th:action="@{/savePost}" th:object="${post}" method="post">
+<!--        <input type="text" th:field = "*{title}" placeholder="Post Title" class="form-control mb-4 col-4">-->
+<!--        <textarea th:field="*{body}" placeholder="Write something valuable"></textarea>-->
+
         <div>
             <!--            Added for form validation. If there is any error or ${#fields.hasErrors('title')} evaluates to true,-->
             <!--            th:errors will flag users for message specifies in model class.-->
-            <input type="text" th:field = "*{title}" placeholder="Post Title" class="form-control mb-4 col-4">
+            <input type="text" th:field="*{title}" placeholder="Post Title" class="form-control mb-4 col-4">
             <div class="alert alert-warning" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
         </div>
         <div>

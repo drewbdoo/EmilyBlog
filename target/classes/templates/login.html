@@ -16,19 +16,23 @@
         <div th:if="${param.logout}">
             <p class="alert alert-success" role="alert"> You have been successfully logged out</p>
         </div>
-<h2 style="text-align: center">Login to view site</h2>
-        <div>
-            <input type="text" name="username" id="username" placeholder="UserName" required="true" autofocus="autofocus"/>
-        </div>
-        <div>
-            <input type="password" name="password" id="password" placeholder="Password" required="true"/>
-        </div>
-        <div class="align-center" style="text-align: center" >
-            <label for="remember-me">Remember Me</label>
-            <input type="checkbox" id="remember-me" name="remember-me">
-        </div>
-        <div>
-            <input type="submit" class="green-btn blue-btn" value="Login"/>
+
+        <div id = "login_container">
+            <h2 class="text-center">WIN Testimonials</h2>
+            <h2 style="text-align: center">Login</h2>
+            <div class = "login_box">
+                <input type="text" name="username" id="username" placeholder="UserName" required="true" autofocus="autofocus"/>
+
+
+                <input type="password" name="password" id="password" placeholder="Password" required="true"/>
+            </div>
+            <div class="align-center" style="text-align: center" >
+                <label for="remember-me">Remember Me</label>
+                <input type="checkbox" id="remember-me" name="remember-me">
+            </div>
+            <div>
+                <input type="submit" class="green-btn blue-btn" value="Login"/>
+            </div>
         </div>
 
     </form>
